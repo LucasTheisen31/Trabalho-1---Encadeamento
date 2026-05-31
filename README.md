@@ -49,19 +49,39 @@ O campo `origem` aponta para o canto superior esquerdo. A partir dele, todos os 
 ### 2.3 Visualização da grade (3×3)
 
 ```mermaid
-flowchart LR
+flowchart TB
     gradeOrigem["origem"] --> grade00["No 0,0"]
-    grade00 --> grade10["No 1,0"]
-    grade10 --> grade20["No 2,0"]
-    grade00 --> grade01["No 0,1"]
-    grade10 --> grade11["No 1,1"]
-    grade20 --> grade21["No 2,1"]
-    grade01 --> grade02["No 0,2"]
-    grade11 --> grade12["No 1,2"]
-    grade21 --> grade22["No 2,2"]
+
+    subgraph linha0["Linha 0"]
+        direction LR
+        grade00 --> grade10["No 1,0"] --> grade20["No 2,0"]
+    end
+
+    subgraph linha1["Linha 1"]
+        direction LR
+        grade01["No 0,1"] --> grade11["No 1,1"] --> grade21["No 2,1"]
+    end
+
+    subgraph linha2["Linha 2"]
+        direction LR
+        grade02["No 0,2"] --> grade12["No 1,2"] --> grade22["No 2,2"]
+    end
+
+    grade00 --> grade01
+    grade10 --> grade11
+    grade20 --> grade21
+    grade01 --> grade02
+    grade11 --> grade12
+    grade21 --> grade22
+
+    style linha0 fill:transparent,stroke:transparent
+    style linha1 fill:transparent,stroke:transparent
+    style linha2 fill:transparent,stroke:transparent
 ```
 
 > Para manter o diagrama legível, ele mostra apenas algumas ligações para direita e para baixo. As referências para esquerda e para cima existem também, como ponteiros inversos.
+>
+> As setas horizontais representam o ponteiro `direita`; as verticais representam o ponteiro `baixo`.
 >
 > Os nós das bordas têm ponteiros `NULL` nos sentidos sem vizinho (ex: `(0,0)->esquerda == NULL` e `(0,0)->cima == NULL`).
 
